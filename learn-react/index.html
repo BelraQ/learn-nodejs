@@ -1,0 +1,62 @@
+<html>
+<head>
+    
+    <title>Document</title>
+</head>
+<body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        
+        const Button = () => {
+            const [op1, setOp1] = React.useState(Math.ceil(Math.random() * 9));
+            const [op2, setOp2] = React.useState(Math.ceil(Math.random() * 9));
+            const [value, setValue] = React.useState();
+            const [result, setResult] = React.useState(''); 
+            //const input = '';
+
+            const check = () => {
+                if (op1 * op2 === parseInt(value)) {
+                    setResult(value + ' 정답!');
+                    setOp1(Math.ceil(Math.random() * 9));
+                    setOp2(Math.ceil(Math.random() * 9));
+                } else {
+                    setResult(value + ' 땡');
+                }
+                setValue('');
+                input.focus();
+            }
+
+            return (
+                <div>
+                <p>{op1} 곱하기 {op2}는?</p>
+                <input type="number" value={value} onChange={(e) => {setValue(e.target.value)}}/>
+                <button onClick={check}>
+                    입력
+                </button>
+                <p>{result}</p>
+                </div>
+            );
+        }
+        const Flip = () => {
+            const [fliped, setFliped] = React.useState(false);
+            const fliping = () => {
+                setFliped((c) => !c);
+            }
+            return (
+                <div>
+                <input type="number" placeholder="1" disabled={fliped}/>
+                <input type="number" placeholder="2" disabled={!fliped}/>
+                <button onClick={fliping}>
+                    flip
+                </button>
+                </div>
+            );
+        }
+        ReactDOM.createRoot(document.querySelector('#root')).render(<div><Flip/></div>);
+
+    </script>
+</body>
+</html>
