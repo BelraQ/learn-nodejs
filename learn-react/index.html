@@ -13,8 +13,9 @@
         const Button = () => {
             const [op1, setOp1] = React.useState(Math.ceil(Math.random() * 9));
             const [op2, setOp2] = React.useState(Math.ceil(Math.random() * 9));
-            const [value, setValue] = React.useState();
+            const [value, setValue] = React.useState('');
             const [result, setResult] = React.useState(''); 
+            let f1;
             //const input = '';
 
             const check = () => {
@@ -26,14 +27,14 @@
                     setResult(value + ' 땡');
                 }
                 setValue('');
-                input.focus();
+                f.focus();
             }
 
             return (
                 <div>
                 <p>{op1} 곱하기 {op2}는?</p>
-                <input type="number" value={value} onChange={(e) => {setValue(e.target.value)}}/>
-                <button onClick={check}>
+                <input ref={(c) => f1 = c}type="number" value={value} onChange={(e) => {setValue(e.target.value)}}/>
+                <button onClick={check}>    
                     입력
                 </button>
                 <p>{result}</p>
@@ -42,13 +43,25 @@
         }
         const Flip = () => {
             const [fliped, setFliped] = React.useState(false);
+            const [value1, setValue1] = React.useState('');
+            let f1, f2;
             const fliping = () => {
+                console.log(fliped);
+                console.log(f1);
+                console.log(f2);
                 setFliped((c) => !c);
+                console.log(fliped);
+                if (fliped) {
+                    f1.focus();
+                } else {
+                    f2.focus();
+                }
             }
+            
             return (
                 <div>
-                <input type="number" placeholder="1" disabled={fliped}/>
-                <input type="number" placeholder="2" disabled={!fliped}/>
+                <input ref={(f) => f1 = f} value={value1} onChange={(e) => setValue1(e.target.value)} type="number" disabled={fliped}/>
+                <input ref={(f) => f2 = f} type="number" placeholder="2" disabled={!fliped}/>
                 <button onClick={fliping}>
                     flip
                 </button>
