@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>프론트 API 요청</title>
+  </head>
+  <body>
+    <div id="description">
+      <h1>get 결과 </h1>
+      <h2></h2>
+      <h3></h3>
+    </div>
+    <div id="result"></div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const xhr = new XMLHttpRequest();
+    axios.get('http://localhost:8007/random', {withCredentials: true, headers: {
+      'Origin': 'http://127.0.0.1:5500' // 원하는 Origin을 설정
+    }})
+      .then((res) => {
+        console.log(res.data);
+        document.querySelector('#description h2').textContent += res.data.code;
+        document.querySelector('#description h3').textContent += res.data.message;
+        document.querySelector('#result').textContent = res.data.problem.quiz + "\n" + res.data.problem.answer;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  </script>
+  </body>
+</html>
